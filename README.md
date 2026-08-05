@@ -1,1 +1,0 @@
-Upload files to GitHub. Enable GitHub Pages in Settings>Pages. In Firebase Authentication>Settings add your GitHub Pages domain to Authorized domains.
