@@ -1,37 +1,113 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Auric Ember Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+<title>Auric Ember - My Account</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background:#f8f5f0;
+  margin:0;
+}
+
+.header {
+  background:#3b2a20;
+  color:white;
+  padding:20px;
+  text-align:center;
+}
+
+.card {
+  background:white;
+  margin:20px;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 2px 8px #ccc;
+}
+
+button {
+  background:#3b2a20;
+  color:white;
+  border:none;
+  padding:12px 20px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.menu {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.menu div {
+  background:#fff;
+  padding:20px;
+  text-align:center;
+  border-radius:12px;
+}
+</style>
+
 </head>
+
 <body>
 
-<h1>🕯️ Auric Ember</h1>
-<h2>Customer Dashboard</h2>
+<div class="header">
+<h1>Auric Ember</h1>
+<p>My Account</p>
+</div>
 
-<p id="welcome">Welcome!</p>
 
-<button onclick="location.href='profile.html'">👤 My Profile</button>
-<br><br>
+<div class="card">
+<h2>Welcome 👋</h2>
+<p id="userEmail"></p>
+</div>
 
-<button onclick="location.href='orders.html'">📦 My Orders</button>
-<br><br>
 
-<button onclick="location.href='wishlist.html'">❤️ Wishlist</button>
-<br><br>
+<div class="card">
+<h3>Account Options</h3>
 
-<button onclick="location.href='addresses.html'">📍 Saved Addresses</button>
-<br><br>
+<div class="menu">
 
-<button onclick="location.href='loyalty.html'">🎁 Loyalty Points</button>
-<br><br>
+<div>
+<h4>🛍 Orders</h4>
+<p>View your orders</p>
+</div>
 
-<button id="logout">🚪 Logout</button>
+<div>
+<h4>❤️ Wishlist</h4>
+<p>Your saved candles</p>
+</div>
 
-<script type="module" src="dashboard.js"></script>
+<div>
+<h4>🎁 Rewards</h4>
+<p>Cashback & points</p>
+</div>
+
+<div>
+<h4>📍 Address</h4>
+<p>Manage delivery address</p>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+<button id="logout">Logout</button>
+</div>
+
+
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import { initializeApp } 
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import { getAuth, onAuthStateChanged, signOut } 
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
 
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
@@ -42,29 +118,39 @@ const firebaseConfig = {
   appId: "YOUR_APP_ID"
 };
 
+
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // User is logged in
-    console.log("User:", user.email);
-  } else {
-    // User is not logged in
-    window.location.href = "index.html";
-  }
+
+onAuthStateChanged(auth,(user)=>{
+
+ if(user){
+
+ document.getElementById("userEmail").innerHTML =
+ "Email: " + user.email;
+
+ }
+ else{
+
+ window.location.href="index.html";
+
+ }
+
 });
 
-// Optional logout button
-const logoutBtn = document.getElementById("logout");
 
-if (logoutBtn) {
-  logoutBtn.onclick = () => {
-    signOut(auth).then(() => {
-      window.location.href = "index.html";
-    });
-  };
-}
+document.getElementById("logout").onclick=()=>{
+
+signOut(auth).then(()=>{
+window.location.href="index.html";
+});
+
+};
+
+
 </script>
+
 </body>
 </html>
