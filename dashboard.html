@@ -108,6 +108,9 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+import { getFirestore, doc, getDoc } 
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 
 const firebaseConfig={apiKey:"AIzaSyBdqq63eP_zc6UWjc5sSVRdwjoUnUzPYT4",authDomain:"auricember.firebaseapp.com",projectId:"auricember",storageBucket:"auricember.firebasestorage.app",messagingSenderId:"568693145265",appId:"1:568693145265:web:de258d43d06ff35778ec90",measurementId:"G-E109YXWP1W"};
 
@@ -115,19 +118,34 @@ const firebaseConfig={apiKey:"AIzaSyBdqq63eP_zc6UWjc5sSVRdwjoUnUzPYT4",authDomai
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
-
-onAuthStateChanged(auth,(user)=>{
+onAuthStateChanged(auth, async (user)=>{
 
  if(user){
 
- document.getElementById("userEmail").innerHTML =
- "Email: " + user.email;
+   document.getElementById("userEmail").innerHTML =
+   "Email: " + user.email;
+
+   const userRef = doc(db,"users",user.uid);
+   const userSnap = await getDoc(userRef);
+
+   if(userSnap.exists()){
+
+     const data = userSnap.data();
+
+     document.getElementById("userName").innerHTML =
+     "Welcome, " + data.name + " 👋";
+
+     document.getElementById("points").innerHTML =
+     "Reward Points: " + data.points;
+
+   }
 
  }
  else{
 
- window.location.href="index.html";
+   window.location.href="index.html";
 
  }
 
