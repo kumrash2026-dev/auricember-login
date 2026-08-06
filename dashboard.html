@@ -90,7 +90,9 @@ button {
 
 <div>
 <h4>🛍 Orders</h4>
-<p>View your orders</p>
+<div id="ordersList">
+<p>No orders found</p>
+</div>
 </div>
 
 <div>
@@ -130,7 +132,11 @@ import {
   getFirestore,
   doc,
   getDoc,
-  updateDoc
+  updateDoc,
+  collection,
+  query,
+  where,
+  getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
@@ -166,10 +172,38 @@ document.getElementById("address").value = data.address || "";
 
      document.getElementById("points").innerHTML =
      "Reward Points: " + data.points;
+const ordersQuery = query(
+  collection(db, "orders"),
+  where("userId", "==", user.uid)
+);
 
+const ordersSnapshot = await getDocs(ordersQuery);
+
+const ordersList = document.getElementById("ordersList");
+
+ordersList.innerHTML = "";
+
+if (ordersSnapshot.empty) {
+  ordersList.innerHTML = "<p>No orders found</p>";
+} else {
+  ordersSnapshot.forEach((orderDoc) => {
+
+    const order = orderDoc.data();
+
+    ordersList.innerHTML += `
+      <div style="border:1px solid #ddd;padding:10px;margin-bottom:10px;border-radius:8px;">
+        <strong>${order.orderId}</strong><br>
+        Date: ${order.date}<br>
+        Total: ${order.total}<br>
+        Status: ${order.status}
+      </div>
+    `;
+  });
+}
    }
 
  }
+   
  else{
 
    window.location.href="index.html";
