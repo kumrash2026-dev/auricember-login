@@ -133,7 +133,9 @@ onAuthStateChanged(auth, async (user)=>{
    "Email: " + user.email;
 
    const userRef = doc(db,"users",user.uid);
+   console.log("Logged UID:", user.uid);
    const userSnap = await getDoc(userRef);
+   console.log("Document exists:", userSnap.exists());
 
    if(userSnap.exists()){
 
