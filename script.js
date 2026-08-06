@@ -6,17 +6,24 @@ const firebaseConfig={apiKey:"AIzaSyBdqq63eP_zc6UWjc5sSVRdwjoUnUzPYT4",authDomai
 const app=initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth=getAuth(app);const e=()=>email.value,p=()=>password.value,m=document.getElementById('msg');
-signup.onclick=()=>createUserWithEmailAndPassword(auth,e(),p()).then(.then(async (userCredential)=>{
+signup.onclick = () =>
+  createUserWithEmailAndPassword(auth, e(), p())
+    .then(async (userCredential) => {
 
-const user = userCredential.user;
+      const user = userCredential.user;
 
-await setDoc(doc(db,"users",user.uid),{
+      await setDoc(doc(db, "users", user.uid), {
+        name: "New User",
+        email: user.email,
+        points: 0
+      });
 
-name: "New User",
-email: user.email,
-points: 0
+      m.textContent = "Account created successfully...";
 
-});
+    })
+    .catch((error) => {
+      m.textContent = error.message;
+    });
 
 m.textContent = "Account created";
 
