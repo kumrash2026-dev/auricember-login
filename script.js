@@ -17,13 +17,6 @@ signup.onclick = () =>
         email: user.email,
         points: 0
       });
-
-      m.textContent = "Account created successfully...";
-
-    })
-    .catch((error) => {
-      m.textContent = error.message;
-    });
 login.onclick = () =>
   signInWithEmailAndPassword(auth, e(), p())
     .then(() => {
