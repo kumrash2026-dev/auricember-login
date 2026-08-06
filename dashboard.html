@@ -178,6 +178,7 @@ const ordersQuery = query(
 );
 
 const ordersSnapshot = await getDocs(ordersQuery);
+     console.log("Orders found:", ordersSnapshot.size);
 
 const ordersList = document.getElementById("ordersList");
 
