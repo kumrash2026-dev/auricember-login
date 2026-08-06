@@ -6,6 +6,12 @@ import {
   sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+import {
+  getFirestore,
+  doc,
+  setDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyBdqq63eP_zc6UWjc5sSVRdwjoUnUzPYT4",
   authDomain: "auricember.firebaseapp.com",
@@ -18,6 +24,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 const email = document.getElementById("email");
 const password = document.getElementById("password");
