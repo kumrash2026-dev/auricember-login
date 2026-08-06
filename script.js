@@ -54,7 +54,7 @@ signup.onclick = async () => {
   msg.textContent = e.code + " : " + e.message;
 }
 
-    msg.textContent = "Account created successfully";
+    msg.textContent = "Account + Firestore profile created";
 
   } catch (error) {
 
