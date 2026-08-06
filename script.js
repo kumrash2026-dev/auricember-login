@@ -45,6 +45,7 @@ signup.onclick = async () => {
     email: email.value,
     points: 0
   });
+      alert("Firestore document created");
 
   console.log("Firestore document created");
 
