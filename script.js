@@ -24,10 +24,6 @@ signup.onclick = () =>
     .catch((error) => {
       m.textContent = error.message;
     });
-
-m.textContent = "Account created";
-
-})).catch(x=>m.textContent=x.message);
 login.onclick = () =>
   signInWithEmailAndPassword(auth, e(), p())
     .then(() => {
