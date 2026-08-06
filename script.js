@@ -28,14 +28,31 @@ const login = document.getElementById("login");
 const reset = document.getElementById("reset");
 
 
-signup.onclick = () => {
-  createUserWithEmailAndPassword(auth, email.value, password.value)
-    .then(() => {
-      msg.textContent = "Account created successfully";
-    })
-    .catch(error => {
-      msg.textContent = error.message;
+signup.onclick = async () => {
+
+  try {
+
+    const userCredential =
+      await createUserWithEmailAndPassword(
+        auth,
+        email.value,
+        password.value
+      );
+
+    await setDoc(doc(db, "users", userCredential.user.uid), {
+      name: "New Customer",
+      email: email.value,
+      points: 0
     });
+
+    msg.textContent = "Account created successfully";
+
+  } catch (error) {
+
+    msg.textContent = error.message;
+
+  }
+
 };
 
 
