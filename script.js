@@ -47,12 +47,13 @@ signup.onclick = async () => {
       );
 
     try {
-  await setDoc(doc(db, "users", userCredential.user.uid), {
-    name: "New Customer",
-    email: email.value,
-    points: 0
-  });
-      alert("Firestore document created");
+await setDoc(doc(db, "users", userCredential.user.uid), {
+  name: "New Customer",
+  email: email.value,
+  phone: "",
+  address: "",
+  points: 0
+});
 
   console.log("Firestore document created");
 
